@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提示框效果</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 560px;
+            margin: 30px auto;
+            padding: 0 0 10px 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+        .box h3 {
+            margin-top: 20px;
+        }
+        ul {
+            list-style-type: none;
+        }
+        ul li {
+            display: inline-block;
+            font-size: 12px;
+            margin-top: 10px;
+            cursor: crosshair;
+            position: relative;
+        }
+        ul li img {
+            display: none;
+            position: absolute;
+            border: 5px solid #ccc;
+            z-index: 998;
+            left: -14px;
+            top: -14px;
+        }
+        ul li span {
+            display: inline-block;
+            width: 80px;
+            height: 80px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-right: 5px;
+            background-color: #eee;
+        }
+        ul li img.current {
+            display: block;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oLi = document.getElementsByTagName("li");
+            var imgs = document.getElementsByTagName("img");
+
+            for(var i=0;i<oLi.length;i++) {
+                oLi[i].index = i;
+                oLi[i].onmouseover = function() {
+                    for(var j=0;j<oLi.length;j++) {
+                        imgs[j].className = "";
+                    }
+                    imgs[this.index].className = "current";
+                }
+                oLi[i].onmouseout = function() {
+                    for(var j=0;j<oLi.length;j++) {
+                        imgs[j].className = "";
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <h3>名车车标展示-鼠标移过显示车标</h3>
+    <ul>
+        <li>
+            <span><strong>BMW</strong>
+            <p>宝马汽车</p></span>
+            <img src="images/1.jpg">
+        </li>
+        <li>
+            <span><strong>Alfa Romeo</strong>
+            <p>阿尔法-罗米欧</p></span>
+            <img src="images/2.jpg">
+        </li>
+        <li>
+            <span><strong>Skoda</strong>
+            <p>斯柯达</p></span>
+            <img src="images/3.jpg">
+        </li>
+        <li>
+            <span><strong>Volkswagen</strong>
+            <p>大众汽车</p></span>
+            <img src="images/4.jpg">
+        </li>
+        <li>
+            <span><strong>Saab</strong>
+            <p>撒布牌轿车</p></span>
+            <img src="images/5.jpg">
+        </li>
+        <li>
+            <span><strong>Lamborghini</strong>
+            <p>兰博基尼</p></span>
+            <img src="images/6.jpg">
+        </li>
+        <li>
+            <span><strong>Porsche</strong>
+            <p>保时捷</p></span>
+            <img src="images/7.jpg">
+        </li>
+        <li>
+            <span><strong>Peugeot</strong>
+            <p>标致</p></span>
+            <img src="images/8.jpg">
+        </li>
+        <li>
+            <span><strong>Mercedes1</strong>
+            <p>梅赛德斯 奔驰</p></span>
+            <img src="images/9.jpg">
+        </li>
+        <li>
+            <span><strong>BUick</strong>
+            <p>别克汽车</p></span>
+            <img src="images/10.jpg">
+        </li>
+    </ul>
+</div>
+</body>
+</html>

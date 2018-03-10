@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义右键菜单</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-size: 12px;
+        }
+        p {
+            width: 200px;
+            margin: 10px auto;
+        }
+        ul {
+            list-style-type: none;
+            position: absolute;
+            width: 100px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+        }
+        ul li {
+            height: 24px;
+            background: #eaead7;
+            line-height: 24px;
+            padding-left: 24px;
+        }
+        ul li .cut {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 24px;
+            height: 24px;
+            background: url("images/ico.png") no-repeat;
+        }
+        ul li .copy {
+            position: absolute;
+            left: 0;
+            top: 24px;
+            width: 24px;
+            height: 24px;
+            background: url("images/ico.png") no-repeat 0 -24px;
+        }
+        ul li .paste {
+            position: absolute;
+            left: 0;
+            top: 48px;
+            width: 24px;
+            height: 24px;
+            background: url("images/ico.png") no-repeat 0 -48px;
+        }
+        ul li a {
+            display: block;
+            background: #fff;
+            text-decoration: none;
+            color: #000;
+        }
+        ul li.current {
+            background-color: #999;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oUl = document.getElementsByTagName("ul")[0];
+            var aLi = document.getElementsByTagName("li");
+
+            document.oncontextmenu = function(event) {
+                var event = event || window.event;
+                oUl.style.display = "block";
+                oUl.style.left = event.clientX + "px";
+                oUl.style.top = event.clientY + "px";
+                return false;
+            };
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].onmouseover = function() {
+                    for(var j=0;j<aLi.length;j++) {
+                        aLi[j].className = ""
+                    }
+                    this.className = "current";
+                }
+            }
+
+            document.onclick = function() {
+                oUl.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<p>请点击鼠标右键</p>
+<ul>
+    <li>
+        <em class="cut"></em>
+        <a href="javascript:;">剪切</a>
+    </li>
+    <li>
+        <em class="copy"></em>
+        <a href="javascript:;">复制</a>
+    </li>
+    <li>
+        <em class="paste"></em>
+        <a href="javascript:;">粘贴</a>
+    </li>
+</ul>
+</body>
+</html>

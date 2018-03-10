@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用parseInt解析数字并求和</title>
+    <script>
+        window.onload = function() {
+            var txt1 = document.getElementById("txt1");
+            var txt2 = document.getElementById("txt2");
+            var btn = document.getElementById("btn");
+            var oSpan = document.getElementsByTagName("span")[0];
+
+            btn.onclick = function() {
+                    oSpan.innerHTML = parseInt(txt1.value) + parseInt(txt2.value);
+            }
+        };
+    </script>
+</head>
+<body>
+<input type="text" id="txt1">
+<strong>+</strong>
+<input type="text" id="txt2">
+<strong>=</strong>
+<span>?</span>
+<input type="button" id="btn" value="求和">
+</body>
+</html>

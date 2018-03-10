@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width: 500px;
+            text-align: center;
+            margin: 0 auto;
+        }
+        .square {
+            width: 100px;
+            height: 100px;
+            background-color: #000;
+            margin: 30px auto;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+//            var btns = document.getElementsByTagName("button");
+//            var square = document.getElementById("square");
+//
+//            btns[0].onclick = function() {
+//                square.style.width = "200px";
+//            };
+//            btns[1].onclick = function() {
+//                square.style.height = "200px";
+//            };
+//            btns[2].onclick = function() {
+//              square.style.backgroundColor = "red";
+//            };
+//            btns[3].onclick = function() {
+//                square.style.display = "none";
+//            };
+//            btns[4].onclick = function() {
+//                square.style.width = "100px";
+//                square.style.height = "100px";
+//                square.style.backgroundColor = "#000";
+//                square.style.display = "block";
+//            }
+
+            function changeStyle(ele,attr,value) {
+                ele.style[attr] = value;
+            }
+
+            var btns = document.getElementsByTagName("button");
+            var square = document.getElementById("square");
+            var attrs = ["width","height","backgroundColor","display","display"];
+            var values = ["200px","200px","red","none","block"];
+
+            for(var i=0,len=btns.length;i<len;i++) {
+                btns[i].index = i;
+                btns[i].onclick = function() {
+                    square.style.cssText = "";
+                    changeStyle(square,attrs[this.index],values[this.index]);
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="box">
+    <button>变宽</button>
+    <button>变高</button>
+    <button>变色</button>
+    <button>隐藏</button>
+    <button>重置</button>
+    <div class="square" id="square"></div>
+</div>
+</body>
+</html>

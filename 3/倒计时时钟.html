@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>倒计时时钟</title>
+    <style>
+        #box {
+            width: 300px;
+            padding: 20px 10px;
+            background-color: #000;
+            margin: 10px auto;
+            text-align: center;
+            color: #fff;
+        }
+        span {
+            display: inline-block;
+            width: 30px;
+            height: 20px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            color: #000;
+        }
+        #btn {
+            width: 283px;
+            height: 50px;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+        }
+        .bgc1 {
+            background: url("images/btn-1.png") no-repeat 0 -50px;
+        }
+        .bgc2 {
+            background: url("images/btn-1.png") no-repeat 0 0;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var box = document.getElementById("box");
+            var btn = document.getElementById("btn");
+            var aSpan = document.getElementsByTagName("span");
+            var timer = null;
+            var num = 100;
+            var a = num % 60;
+            if(a<10) {
+                a="0"+a;
+            }
+            else {
+                a = a;
+            }
+            var b = "0"+Math.floor(num/60);
+            aSpan[0].innerHTML = b;
+            aSpan[1].innerHTML = a;
+
+            btn.onclick = function() {
+                clearInterval(timer);
+                if(btn.className == "bgc1") {
+                    btn.className = "bgc2";
+                    clearInterval(timer);
+                }
+                else {
+                    btn.className = "bgc1";
+                    timer = setInterval(start,1000);
+                }
+            };
+
+            function start() {
+                num--;
+                if(num>0) {
+                    var a = num % 60;
+                    if(a<10) {
+                        a="0"+a;
+                    }
+                    else {
+                        a = a;
+                    }
+                    var b = "0"+Math.floor(num/60);
+                    aSpan[0].innerHTML = b;
+                    aSpan[1].innerHTML = a;
+                }
+                else {
+                    num = 0;
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <span></span>&nbsp;&nbsp;分钟&nbsp;&nbsp;<span></span>&nbsp;&nbsp;秒<br>
+    <button id="btn" class="bgc2"></button>
+</div>
+</body>
+</html>

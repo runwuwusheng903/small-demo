@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>简易网页时钟</title>
+    <style>
+        .clock {
+            width: 300px;
+            padding: 40px 0;
+            background-color: #000;
+            margin: 10px auto;
+            text-align: center;
+            color: #fff;
+        }
+        span {
+            display: inline-block;
+            width: 30px;
+            height: 20px;
+            margin-right: 10px;
+            background-color: #fff;
+            border: 2px solid #ccc;
+            color: black;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var clock = document.getElementById("clock");
+            var aSpan = clock.getElementsByTagName("span");
+
+            function getTime() {
+                var now = new Date();
+                aSpan[0].innerHTML = now.getHours();
+                aSpan[1].innerHTML = now.getMinutes();
+
+                if(now.getSeconds()<10) {
+                    a = '0'+now.getSeconds();
+                }
+                else {
+                    a = now.getSeconds();
+                }
+                aSpan[2].innerHTML = a;
+            }
+
+            getTime();
+            setInterval(getTime,1000);
+        }
+    </script>
+</head>
+<body>
+<div class="clock" id="clock">
+    <span></span>点&nbsp;&nbsp;<span></span>分&nbsp;&nbsp;<span></span>秒
+</div>
+</body>
+</html>

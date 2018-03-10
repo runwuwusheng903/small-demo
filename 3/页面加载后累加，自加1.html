@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>页面加载后累加，自加1</title>
+    <style>
+        body {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var num = document.body;
+            setInterval(function(){
+                num.innerHTML = parseInt(num.innerHTML)+1;
+            },1000);
+        }
+    </script>
+</head>
+<body>
+1
+</body>
+</html>

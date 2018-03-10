@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自动播放 幻灯片缓冲效果</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #000;
+            overflow: hidden;
+        }
+        #box {
+            position: relative;
+            width: 490px;
+            height: 170px;
+            border: 8px solid #fff;
+            border-radius: 5px;
+            margin: 10px auto;
+        }
+        .list {
+            position: relative;
+            width: 490px;
+            height: 170px;
+            overflow: hidden;
+        }
+        .pic {
+            list-style-type: none;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        .pic li {
+            width: 490px;
+            height: 170px;
+            overflow: hidden;
+        }
+        .pic li img {
+            vertical-align: top;
+        }
+        .count {
+            position: absolute;
+            right: 0;
+            bottom: 5px;
+            list-style-type: none;
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .count li {
+            float: left;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f90;
+            margin-right: 5px;
+            text-align: center;
+            line-height: 20px;
+        }
+        .count li.current {
+            background: #f60;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var aImg = document.getElementsByTagName("img");
+            var oBox = document.getElementById("box");
+            var aUl = document.getElementsByTagName("ul");
+            var aLi = aUl[1].getElementsByTagName("li");
+            var num = 0;
+            var timer = null;
+            var playTimer = null;
+            var flag = true;
+
+            // cutover();
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].index = i;
+                aLi[i].onmouseover = function() {
+                    num = this.index;
+                    cutover();
+                }
+            }
+
+            function startMove(target) {
+                clearInterval(timer);
+                timer = setInterval(function() {
+                    var speed = (target-aUl[0].offsetTop)/10;
+                    speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                    if(aUl[0].offsetTop == speed) {
+                        clearInterval(timer);
+                    }
+                    else {
+                        aUl[0].style.top = aUl[0].offsetTop + speed + "px";
+                    }
+                },30);
+            }
+
+            playTimer = setInterval(next,3000);
+
+            function cutover() {
+                for(var i=0;i<aLi.length;i++) {
+                    aLi[i].className = "";
+                }
+                aLi[num].className = "current";
+                startMove(-(num * aImg[0].offsetHeight));
+            }
+
+            function next() {
+                flag?num++:num--;
+                num<=0 && (num=0,flag=true);
+                num>=aLi.length-1 && (num=aLi.length-1,flag=false);
+                cutover();
+            }
+
+            oBox.onmouseover = function() {
+                clearInterval(playTimer);
+            };
+
+            oBox.onmouseout = function() {
+                playTimer = setInterval(next,3000);
+            };
+
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+    <div class="list">
+        <ul class="pic">
+            <li><img src="images/01.jpg"></li>
+            <li><img src="images/02.jpg"></li>
+            <li><img src="images/03.jpg"></li>
+            <li><img src="images/04.jpg"></li>
+            <li><img src="images/05.jpg"></li>
+        </ul>
+        <ul class="count">
+            <li class="current">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

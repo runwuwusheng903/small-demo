@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组练习</title>
+    <style>
+        div {
+            padding: 10px 0;
+            font-size: 12px;
+            color: green;
+            border: 1px dotted #ccc;
+            margin: 20px 0;
+            background-color: #f5f5f5;
+            word-wrap: break-word; word-break: normal;
+        }
+        button {
+            margin-right: 20px;
+            cursor: pointer;
+        }
+    </style>
+   <script>
+       window.onload = function() {
+           var aDiv = document.getElementsByTagName("div");
+           var aButton = document.getElementsByTagName("button");
+
+           var arr1 = aDiv[0].innerHTML.split(",");
+           var arr2 = aDiv[1].innerHTML.split(",");
+           var arr3 = aDiv[2].innerHTML.split(",");
+
+           aButton[0].onclick = function() {
+               if(this.innerHTML == "删除January(1)") {
+                   arr1.shift();
+                   aDiv[0].innerHTML = arr1.join(",");
+                   this.innerHTML = "添加January(1)";
+               }
+               else {
+                   arr1.unshift("January(1)");
+                   aDiv[0].innerHTML = arr1.join(",");
+                   this.innerHTML = "删除January(1)";
+               }
+           };
+
+           aButton[1].onclick = function() {
+               if(this.innerHTML == "删除December(12)") {
+                   arr1.pop();
+                   aDiv[0].innerHTML = arr1.join(",");
+                   this.innerHTML = "添加December(12)";
+               }
+               else {
+                   arr1.push("December(12)");
+                   aDiv[0].innerHTML = arr1.join(",");
+                   this.innerHTML = "删除December(12)";
+               }
+           };
+
+           aButton[2].onclick = function() {
+               arr2 = arr2.concat(arr2);
+               aDiv[1].innerHTML = arr2.join(",");
+           };
+
+           aButton[3].onclick = function() {
+               arr2.length = 10;
+               aDiv[1].innerHTML = arr2.join(",");
+           };
+
+           aButton[4].onclick = function() {
+                var arr3 = ["red","green","blue","white","yellow","black","brown"];
+                aDiv[2].innerHTML = arr3.join(",");
+           };
+
+           aButton[5].onclick = function() {
+                var arr3 = aDiv[2].innerHTML.split(",");
+                arr3.splice(0,3);
+                aDiv[2].innerHTML = arr3.join(",");
+           };
+
+           aButton[6].onclick = function() {
+               var arr3 = aDiv[2].innerHTML.split(",");
+               arr3.splice(1,2);
+               aDiv[2].innerHTML = arr3.join(",");
+           };
+
+           aButton[7].onclick = function() {
+               var arr3 = aDiv[2].innerHTML.split(",");
+               arr3.splice(1,0,"orange","purple");
+               aDiv[2].innerHTML = arr3.join(",");
+           };
+
+           aButton[8].onclick = function() {
+               var arr3 = aDiv[2].innerHTML.split(",");
+               arr3.splice(1,2,"#009900","#0000ff");
+               aDiv[2].innerHTML = arr3.join(",");
+           }
+       };
+   </script>
+</head>
+<body>
+<div>January(1),February(2),March(3),April(4),May(5),June(6),July(7),Aguest(8),September(9),October(10),November(11),December(12)</div>
+<button>删除January(1)</button><button>删除December(12)</button>
+<div>0,1,2,3,4,5,6,7,8,9</div>
+<button>复制</button><button>还原</button>
+<div>red,green,blue,white,yellow,black,brown</div>
+<button>还原</button><button>删除前三项</button><button>删除第二至三项</button><button>在第二项后插入(orange,purple)</button><button>替换第二项和第三项</button>
+</body>
+</html>

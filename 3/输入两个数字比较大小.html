@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>输入两个数字比较大小</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var btn = document.getElementById("btn");
+            var txt1 = document.getElementById("txt1");
+            var txt2 = document.getElementById("txt2");
+            var oSpan = document.getElementsByTagName("span")[0];
+            var oInt = document.getElementsByTagName("input");
+
+            for(var i=0;i<oInt.length-1;i++) {
+                oInt[i].onkeyup = function() {
+                    this.value = this.value.replace(/[^\d]/,"");
+                }
+            }
+
+            btn.onclick = function() {
+                if(txt1.value == ""||txt2.value == "") {
+                    alert("请输入数字！");
+                }
+                oSpan.innerHTML = parseInt(txt1.value)>parseInt(txt2.value)?txt1.value:txt2.value;
+            }
+        };
+    </script>
+</head>
+<body>
+    <input type="text" id="txt1">
+    <strong>VS</strong>
+    <input type="text" id="txt2">
+    <input type="button" value="最大数是>>>" id="btn">
+    <span>?</span>
+</body>
+</html>

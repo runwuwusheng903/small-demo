@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度输入法</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 200px;
+            margin: 30px auto;
+            text-align: center;
+        }
+        ul {
+            width: 90px;
+            list-style-type: none;
+            font-size: 14px;
+            border: 1px solid deepskyblue;
+            margin-left: 60px;
+            margin-top: 20px;
+            display: none;
+        }
+        ul li {
+            width: 90px;
+            height: 30px;
+            line-height: 30px;
+            cursor: pointer;
+        }
+        ul li:nth-child(3) {
+            border-top: 1px solid deepskyblue;
+        }
+        .current {
+            background-color: #ccc;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var btn = document.getElementsByTagName("button")[0];
+            var oLi = document.getElementsByTagName("li");
+            var oUl = document.getElementsByTagName("ul")[0];
+
+            btn.onclick = function() {
+                oUl.style.display = oUl.style.display=="block"?"none":"block";
+            };
+            
+            for(var i=0,len=oLi.length;i<len;i++) {
+                oLi[i].onmouseover = function() {
+                    for(var j=0,len=oLi.length;j<len;j++) {
+                        oLi[j].className = "";
+                    }
+                    this.className = "current";
+                };
+
+                oLi[i].onmouseout = function() {
+                    for(var j=0,len=oLi.length;j<len;j++) {
+                        oLi[j].className = "";
+                    }
+                }
+            }
+
+            oLi[oLi.length-1].onclick = function() {
+                oUl.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <button>输入法</button>
+    <ul>
+        <li>手写</li>
+        <li>拼音</li>
+        <li>关闭</li>
+    </ul>
+</div>
+</body>
+</html>

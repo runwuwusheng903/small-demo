@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单击显示坐标</title>
+</head>
+<body>
+<script>
+    document.onclick = function(event) {
+        var event = event || window.event;
+        alert("坐标：["+event.clientX+","+event.clientY+"]");
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跟随鼠标移动</title>
+    <style>
+        .box {
+            text-align: center;
+            height: 172px;
+        }
+        .box ul {
+            list-style-type: none;
+            width: 768px;
+            height: 172px;
+            margin: 10px auto;
+        }
+        .box ul li {
+            float: left;
+            width: 170px;
+            height: 170px;
+            border: 1px solid #ccc;
+            margin:0 10px;
+            cursor: pointer;
+        }
+        .current {
+            display: block;
+        }
+        .big {
+            width: 400px;
+            height: 400px;
+            border: 2px solid #ddd;
+            position: absolute;
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var aLi = document.getElementsByTagName("li");
+            var big = document.getElementById("big");
+            var pictures = ["url('images/shirt_1_big.jpg')","url('images/shirt_2_big.jpg')","url('images/shirt_3_big.jpg')","url('images/shirt_4_big.jpg')"];
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].onmouseover = function() {
+                    big.style.display = "block";
+                }
+            }
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].index = i;
+                aLi[i].onmousemove = function(event) {
+                    var event = event || window.event;
+                    big.style.left = event.clientX + 10 + "px";
+                    big.style.top = event.clientY + 10 + "px";
+                    big.style.backgroundImage = pictures[this.index];
+                }
+            }
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].onmouseout = function() {
+                    big.style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <ul>
+        <li><img src="images/shirt_1.jpg" alt=""></li>
+        <li><img src="images/shirt_2.jpg" alt=""></li>
+        <li><img src="images/shirt_3.jpg" alt=""></li>
+        <li><img src="images/shirt_4.jpg" alt=""></li>
+    </ul>
+</div>
+<div class="big" id="big"></div>
+</body>
+</html>

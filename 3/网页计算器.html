@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>网页计算器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style-type: none;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .box {
+            position: relative;
+            width: 300px;
+            margin: 10px auto;
+            background-color: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        .box p {
+            color: #fff;
+            font-size: 12px;
+            text-align: right;
+            padding:0 8px;
+        }
+        input {
+            border: none;
+            outline: none;
+        }
+        #txt1 {
+            width: 290px;
+            height: 84px;
+            padding: 0 5px;
+            background: url("images/inputBg.jpg") repeat-x;
+            font-size: 50px;
+            font-weight: bold;
+            text-align: right;
+        }
+        .box ul {
+            overflow: hidden;
+            position: relative;
+            padding: 0 0 17px 8px;
+            background: url("images/bg.jpg");
+        }
+        ul li {
+            float: left;
+            /*display: inline-block;*/
+            cursor: pointer;
+            text-align: center;
+            margin: 17px 10px 0 0;
+        }
+        ul .li1,ul .li2 {
+            width: 63px;
+            /*height: 41px;*/
+            line-height: 41px;
+        }
+        ul .li1 {
+            background: url("images/btn.png") no-repeat 0 -41px;
+        }
+        ul .li1:hover {
+            background-position: -63px -41px;
+        }
+        ul .li2 {
+            background: url("images/btn.png") no-repeat 0 0;
+        }
+        ul .li2:hover {
+            background-position: -63px 0;
+        }
+        ul .li3 {
+            position: absolute;
+            right: 0;
+            top: 174px;
+            width: 63px;
+            /*height: 99px;*/
+            line-height: 99px;
+            background: url("images/btn.png") no-repeat 0 -164px;
+        }
+        ul .li3:hover {
+            background-position: -63px -164px;
+        }
+        ul .li4 {
+            width: 136px;
+            /*height: 41px;*/
+            line-height: 41px;
+            background: url("images/btn.png") no-repeat 0 -82px;
+        }
+        ul .li4:hover {
+            background-position: 0 -123px;
+        }
+        #txt2 {
+            text-align: right;
+            width: 290px;
+            padding:0 5px;
+            background: none;
+            position: absolute;
+            z-index: 998;
+            left: 0;
+            top: 22px;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var txt1 = document.getElementById("txt1");
+            var txt2 = document.getElementById("txt2");
+            var aLi = document.getElementsByTagName("li");
+            var flag = false;
+            var s = false;
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].onclick = function() {
+                    switch (this.innerHTML) {
+                        case "c":
+                            txt1.value = 0;
+                            txt2.value = "";
+                            s = false;
+                            break;
+                        case "%":
+                            count("%");
+                            break;
+                        case "+":
+                            count("+");
+                            break;
+                        case "-":
+                            count("-");
+                            break;
+                        case "×":
+                            count("*");
+                            break;
+                        case "÷":
+                            count("/");
+                            break;
+                        case "=":
+                            equal("=");
+                            break;
+                        case ".":
+                            dot(".");
+                            break;
+                        default:
+                            number(this.innerHTML);
+                    }
+                };
+            }
+
+            function count(a) {
+                if(flag) {
+                    txt2.value = txt1.value+a;
+                    txt1.value = a;
+                    flag = false;
+                }
+
+                if(/[\%\+\-\*\/]$/.test(txt1.value)) {
+                    if(/[\%\+\-\*\/]$/.test(txt2.value)) {
+//                        txt2.value = txt2.value+txt1.value+a;
+//                        txt1.value = txt1.value.replace(txt1.value.slice(-1),a);
+                        txt1.value = a;
+                        txt2.value = txt2.value.replace(txt2.value.slice(-1),a);
+                    }
+                }
+                else if(txt2.value=="") {
+                    txt2.value = txt1.value+a;
+                    txt1.value = a;
+                }
+                else {
+                    txt2.value = txt2.value+txt1.value+a;
+                    txt1.value = a;
+                }
+            }
+
+            function equal(a) {
+                if(/[\%\+\-\*\/]$/.test(txt2.value)) {
+                    if(/[\%\+\-\*\/]$/.test(txt1.value)) {
+                        txt1.value = txt1.value;
+                        txt2.value = txt2.value;
+                    }
+                    else {
+                        txt2.value = txt2.value + txt1.value;
+                        txt1.value = eval(txt2.value);
+                    }
+                }
+                else {
+                    txt2.value = txt1.value;
+                    txt1.value = txt1.value;
+                }
+
+                flag = true;
+            }
+
+            function dot(a) {
+                if(flag == false) {
+                    if (/[\%\+\-\*\/]$/.test(txt1.value)) {
+                        txt1.value = txt1.value;
+                        txt2.value = txt2.value;
+                        s = false;
+                    }
+                    else if(s==false) {
+                        txt1.value = txt1.value + a;
+                        s = true;
+                    }
+                    else {
+                        txt1.value = txt1.value;
+                    }
+                }
+                else {
+                    txt1.value = "0"+a;
+                    flag = false;
+                    s = true;
+                }
+
+            }
+
+            function number(a) {
+                if(flag == false) {
+                    if(txt1.value == "0") {
+                        if(a=="0") {
+                            txt1.value = "0";
+                        }
+                        else {
+                            txt1.value = a;
+                        }
+                    }
+                    else if(/[\%\+\-\*\/]$/.test(txt1.value)) {
+                        txt1.value = a;
+                    }
+                    else {
+                        txt1.value = txt1.value + a;
+                    }
+                }
+                else {
+                    txt2.value = "";
+                    txt1.value = a;
+                    flag = false;
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <p>yangrun</p>
+    <input type="text" id="txt1" value="0" readonly="readonly">
+    <ul>
+        <li class="li1">c</li>
+        <li class="li1">%</li>
+        <li class="li1">÷</li>
+        <li class="li1">×</li>
+        <li class="li2">7</li>
+        <li class="li2">8</li>
+        <li class="li2">9</li>
+        <li class="li1">-</li>
+        <li class="li2">4</li>
+        <li class="li2">5</li>
+        <li class="li2">6</li>
+        <li class="li1">+</li>
+        <li class="li2">1</li>
+        <li class="li2">2</li>
+        <li class="li2">3</li>
+        <li class="li3">=</li>
+        <li class="li4">0</li>
+        <li class="li2">.</li>
+    </ul>
+    <input type="text" id="txt2" value="" readonly="readonly">
+</div>
+</body>
+</html>

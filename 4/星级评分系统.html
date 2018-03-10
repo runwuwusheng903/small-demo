@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>星级评分系统</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .star {
+            width: 600px;
+            margin: 20px auto;
+            position: relative;
+        }
+        .star span {
+            margin-right: 7px;
+            font-size: 12px;
+            color: #666;
+            float: left;
+        }
+        .star ul {
+            list-style-type: none;
+        }
+        .star ul li {
+            width: 19px;
+            height: 28px;
+            background: url("images/star.png") no-repeat;
+            float: left;
+            cursor: pointer;
+            padding-left: 7px;
+        }
+        .star p {
+            font-size: 12px;
+            width: 179px;
+            height: 67px;
+            padding: 7px 10px;
+            background: url("images/icon.gif") no-repeat;
+            position: absolute;
+            left: 49px;
+            top: 24px;
+            display: none;
+        }
+        .star p em {
+            font-style: normal;
+            color: red;
+        }
+        .star ul li.current {
+            background: url("images/star.png") no-repeat 0 -28px;
+        }
+        .star #spa4 {
+            margin-left: 20px;
+            color: red;
+            font-weight: 700;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oUl = document.getElementsByTagName("ul")[0];
+            var aLi = document.getElementsByTagName("li");
+            var oEm = document.getElementsByTagName("em")[0];
+            var spa2 = document.getElementById("spa2");
+            var spa3 = document.getElementById("spa3");
+            var oP = document.getElementsByTagName("p")[0];
+            var spa4 = document.getElementById("spa4");
+            var arr1 = ["1分 很不满意","2分 不满意","3分 一般","4分 满意","5分 非常满意"];
+            var arr2 = ["差得太离谱，与卖家描述的严重不符，非常不满","部分有破损，与卖家描述的不符，不满意","质量一般，没有卖家描述的那么好","质量不错，与卖家描述的基本一致，还是挺满意的","质量非常好，与卖家描述的完全一致，非常满意"];
+            var arr3 = ["(差得太离谱，与卖家描述的严重不符，非常不满)","(部分有破损，与卖家描述的不符，不满意)","(质量一般，没有卖家描述的那么好)","(质量不错，与卖家描述的基本一致，还是挺满意的)","(质量非常好，与卖家描述的完全一致，非常满意)"];
+            var arr4 = ["1分","2分","3分","4分","5分"];
+            var num = 0;
+            var flag = false;
+
+            for(var i=0;i<aLi.length;i++) {
+                aLi[i].index = i;
+                aLi[i].onmouseover = function() {
+                    for(var j=0;j<aLi.length;j++) {
+                        aLi[j].className = "";
+                    }
+                    for(var k=0;k<this.index+1;k++) {
+                        aLi[k].className = "current";
+                    }
+                    oEm.innerHTML = arr1[this.index];
+                    spa2.innerHTML = arr2[this.index];
+                    oP.style.display = "block";
+                    oP.style.left = 22 + this.index*27 + "px";
+                };
+
+                aLi[i].onclick = function() {
+                    for(var j=0;j<aLi.length;j++) {
+                        aLi[j].className = "";
+                    }
+                    for(var k=0;k<this.index+1;k++) {
+                        aLi[k].className = "current";
+                    }
+                    num = this.index;
+                    spa4.innerHTML = arr4[num];
+                    spa3.innerHTML = arr3[num];
+                    oP.style.display = "none";
+                    flag = true;
+                };
+
+                aLi[i].onmouseout = function() {
+                    for(var j=0;j<aLi.length;j++) {
+                        aLi[j].className = "";
+                    }
+                    if(flag) {
+                        for(var k=0;k<num+1;k++) {
+                            aLi[k].className = "current";
+                        }
+                    }
+                    oP.style.display = "none";
+                };
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="star" id="star">
+    <span id="spa1">点击星星就能打分</span>
+    <ul>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+        <li><a href="#"></a></li>
+    </ul>
+    <p>
+        <em>1分 很不满意</em>
+        <span id="spa2">差得太离谱，与卖家描述的严重不符，非常不满</span>
+    </p>
+    <span id="spa4"></span><span id="spa3"></span>
+</div>
+</body>
+</html>

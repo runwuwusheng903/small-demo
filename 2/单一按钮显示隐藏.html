@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单一按钮显示隐藏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .box {
+            width: 200px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+        }
+        .box h2 {
+            height: 30px;
+            border-bottom: 1px solid #ccc;
+            font-size: 14px;
+            padding-left: 5px;
+            color: #666;
+            line-height: 30px;
+            cursor: pointer;
+            background: url("images/ico.gif") no-repeat 180px 14px #eee;
+        }
+        ul {
+            list-style-type: none;
+            font-size: 12px;
+            background-color: #f1f1f1;
+            text-indent: 5px;
+        }
+        ul li {
+            line-height: 24px;
+        }
+        ul li a {
+            text-decoration: none;
+            color: #666;
+        }
+        ul li a:hover {
+            border-bottom: 1px solid #666;
+        }
+        .box ul .current {
+            background-color: #fff;
+        }
+        .box h2.open {
+            background-position: 180px -12px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var box = document.getElementById("box");
+            var oLi = document.getElementsByTagName("li");
+            var oH = document.getElementsByTagName("h2")[0];
+            var oUl = document.getElementsByTagName("ul")[0];
+
+            oH.onclick = function() {
+                oUl.style.display = oUl.style.display == "none"?"block":"none";
+                oH.className = oH.className == ""?"open":"";
+            }
+
+            for(var i=0;i<oLi.length;i++) {
+                oLi[i].onmouseover = function() {
+                    for(var j=0;j<oLi.length;j++) {
+                        oLi[j].className = "";
+                    }
+                    this.className = "current";
+                };
+                oLi[i].onmouseout = function() {
+                    for(var j=0;j<oLi.length;j++) {
+                        oLi[j].className = "";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box" id="box">
+    <h2>播放列表...</h2>
+    <ul>
+        <li><a href="javascript:;">玩家之徒 - 蔡依林</a></li>
+        <li class="current"><a href="javascript:;">原谅我就是这样的女生 - 戴佩妮</a></li>
+        <li><a href="javascript:;">猜不透 - 丁当</a></li>
+        <li><a href="javascript:;">自导自演 - 周杰伦</a></li>
+        <li><a href="javascript:;">浪漫窝 - 弦子</a></li>
+        <li><a href="javascript:;">流年 - 王菲</a></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>完美拖拽</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #000;
+        }
+        #box {
+            font-size: 12px;
+            color: white;
+            width: 300px;
+            height: 150px;
+            border: 2px solid #ccc;
+            position: absolute;
+            top:50%;
+            left:50%;
+            margin:-75px 0 0 -150px;
+            background:#333;
+        }
+        #box h2 {
+            height: 25px;
+            border-bottom: 2px solid #ccc;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 25px;
+            background:#222;
+            cursor: move;
+        }
+        #box h2 a {
+            color: white;
+            font-size: 12px;
+            text-decoration: none;
+        }
+        #box p {
+            padding:0 10px;
+            margin-top:12px;
+        }
+        #box span {
+            color:#ff0;
+            padding-left:5px;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oBox = document.getElementById("box");
+            var oH2 = oBox.getElementsByTagName("h2")[0];
+            var oA = oBox.getElementsByTagName("a")[0];
+            var aSpan = document.getElementsByTagName("span");
+            var aPos = [{x:oBox.offsetLeft,y:oBox.offsetTop}];//用于回放的数组
+            var timer = null;
+
+            var bDrag = false;
+            var disX = disY = 0;
+
+            //鼠标按下，激活拖拽
+            oH2.onmousedown = function(event) {
+                var event = event || window.event;
+                bDrag = true;
+                disX = event.clientX - oBox.offsetLeft;
+                disY = event.clientY - oBox.offsetTop;
+                aPos.push({x:oBox.offsetLeft,y:oBox.offsetTop});
+                this.setCapture && this.setCapture();
+
+                showWord();
+                return false;
+            };
+
+            //鼠标移动，开始拖拽
+            document.onmousemove = function(event) {
+                if(!bDrag) {
+                    return;
+                }
+                var event = event || window.event;
+
+                var mL = event.clientX - disX;
+                var mT = event.clientY - disY;
+
+                mL = mL<0?0:mL;
+                mL = mL>document.documentElement.clientWidth - oBox.offsetWidth?document.documentElement.clientWidth - oBox.offsetWidth:mL;
+                mT = mT<0?0:mT;
+                mT = mT>document.documentElement.clientHeight - oBox.offsetHeight?document.documentElement.clientHeight - oBox.offsetHeight:mT;
+
+                aPos.push({x:mL,y:mT});
+
+                oBox.style.marginTop = oBox.style.marginLeft = 0;
+                oBox.style.left = mL + "px";
+                oBox.style.top = mT + "px";
+
+                showWord();
+
+                return false;
+            };
+
+            //鼠标抬起，停止拖拽
+            document.onmouseup = function() {
+                bDrag = false;
+               oH2.releaseCapture && oH2.releaseCapture();
+                showWord();
+            };
+
+            //点击回放
+            oA.onclick = function() {
+                if(aPos.length == 1) {
+                    return
+                }
+                timer = setInterval(function(){
+                    var a = aPos.pop();
+                    if(a) {
+                        oBox.style.left = a.x + "px";
+                        oBox.style.top = a.y + "px";
+                        showWord();
+                    }
+                    else {
+                        clearInterval(timer);
+                    }
+                },30);
+
+                this.focus = false;
+                return false;
+            };
+
+            //取消冒泡
+            oA.onmousedown = function(event) {
+                var event = event || window.event;
+                event.cancelBubble = true;
+            };
+
+            function showWord() {
+                aSpan[0].innerHTML = bDrag;
+                aSpan[1].innerHTML = oBox.offsetTop;
+                aSpan[2].innerHTML = oBox.offsetLeft;
+            }
+
+            showWord();
+        };
+    </script>
+</head>
+<body>
+<div id="box">
+    <h2><a href="javascript:;">点击回放拖动轨迹</a></h2>
+    <p><strong>Drag:</strong><span></span></p>
+    <p><strong>offsetTop:</strong><span></span></p>
+    <p><strong>offsetLeft:</strong><span></span></p>
+</div>
+</body>
+</html>

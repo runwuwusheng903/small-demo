@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .box {
+            width: 200px;
+            margin: 0 auto;
+            font-size: 14px;
+        }
+        .news {
+            padding: 5px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            background-color: pink;
+            display: none;
+        }
+        label {
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var oLabel = document.getElementsByTagName("label")[0];
+            var news = document.getElementById("news");
+
+            oLabel.onmouseover = function() {
+                news.style.display = "block";
+            };
+            oLabel.onmouseout = function() {
+                news.style.display = "none";
+            };
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <label>
+        <input type="checkbox">两周内自动登录
+    </label>
+    <div class="news" id="news">为了您的信息安全，请不要在网吧或公用电脑上使用此功能！</div>
+</div>
+</body>
+</html>
